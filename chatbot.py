@@ -1,5 +1,5 @@
 
-
+from recommendation.recommendation import recommend_by_mood
 from transformers import pipeline
 
 # Load the emotion classifier once
@@ -81,45 +81,21 @@ def recommend_music(mood):
 
     choice = input("\nEnter your choice (1-3): ")
 
-    if mood == "Sad":
+    print("\n🎵 Recommended Songs:\n")
 
-        if choice == "1":
-            print("\n🎵 Showing songs that match your mood...")
+    songs = recommend_by_mood(mood)
 
-        elif choice == "2":
-            print("\n🌈 Showing cheerful songs to improve your mood...")
+    if len(songs) == 0:
 
-        elif choice == "3":
-            print("\n😌 Showing relaxing songs...")
+        print("No songs found.")
+        return
 
-        else:
-            print("\nInvalid choice!")
+    for song in songs:
 
-    elif mood == "Happy":
-
-        if choice == "1":
-            print("\n🎉 Keeping the vibes going!")
-
-        elif choice == "2":
-            print("\n💃 Opening Dance Playlist!")
-
-        elif choice == "3":
-            print("\n🔥 Showing Trending Songs!")
-
-    elif mood == "Stressed":
-
-        if choice == "1":
-            print("\n😌 Relaxing playlist...")
-
-        elif choice == "2":
-            print("\n📚 Focus playlist...")
-
-        elif choice == "3":
-            print("\n🎹 Calm songs...")
-
-    else:
-        print("\nMusic recommendations will be added in the next phase.")
-
+        print(f"🎵 {song['Song']}")
+        print(f"👤 {song['Artist']}")
+        print(f"🎼 {song['Genre']}")
+        print("----------------------------")
 
 def chatbot():
 
