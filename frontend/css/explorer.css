@@ -1,0 +1,466 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+body {
+
+    background:#0f0f0f;
+    color:white;
+
+}
+
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+
+nav {
+
+    padding:20px 80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#181818;
+
+}
+
+
+
+.logo {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#1DB954;
+
+    font-size:25px;
+
+    font-weight:600;
+
+}
+
+
+
+.logo i {
+
+    font-size:30px;
+
+}
+
+
+
+nav ul {
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+
+
+nav ul a {
+
+    text-decoration:none;
+
+    color:white;
+
+}
+
+
+
+nav ul a:hover {
+
+    color:#1DB954;
+
+}
+
+
+
+/* ================================
+   EXPLORER HERO
+================================ */
+
+
+.explorer {
+
+    text-align:center;
+
+    padding:80px 30px;
+
+}
+
+
+
+.explorer h1 {
+
+    font-size:50px;
+
+}
+
+
+
+.explorer p {
+
+    color:#aaa;
+
+    font-size:18px;
+
+    margin-top:15px;
+
+}
+
+
+
+/* ================================
+   SEARCH
+================================ */
+
+
+.search-area {
+
+
+    margin:50px auto 30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+
+}
+
+
+
+.search-area input {
+
+
+    width:500px;
+
+    padding:18px 25px;
+
+    border-radius:50px;
+
+    border:none;
+
+    outline:none;
+
+    font-size:16px;
+
+
+}
+
+
+
+.search-area button {
+
+
+    padding:18px 30px;
+
+    border-radius:50px;
+
+    border:none;
+
+    background:#1DB954;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+
+}
+
+
+
+.search-area button:hover {
+
+
+    transform:scale(1.05);
+
+
+}
+
+
+
+/* ================================
+   FILTERS
+================================ */
+
+
+.filters {
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+
+}
+
+
+
+.filters select {
+
+
+    padding:15px 35px;
+
+    border-radius:30px;
+
+    background:#1a1a1a;
+
+    color:white;
+
+    border:1px solid #1DB954;
+
+    font-size:15px;
+
+
+}
+
+
+
+/* ================================
+   MUSIC RESULTS
+================================ */
+
+
+.explore-results {
+
+
+    padding:60px 100px;
+
+
+}
+
+
+
+.explore-results h2 {
+
+
+    text-align:center;
+
+    font-size:40px;
+
+    margin-bottom:50px;
+
+
+}
+
+
+
+.music-grid {
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+.music-card {
+
+
+    width:270px;
+
+    background:#181818;
+
+    padding:20px;
+
+    border-radius:25px;
+
+    transition:.4s;
+
+
+}
+
+
+
+.music-card:hover {
+
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 30px rgba(29,185,84,.2);
+
+
+}
+
+
+
+.music-card img {
+
+
+    width:100%;
+
+    border-radius:20px;
+
+
+}
+
+
+
+.music-card h3 {
+
+
+    margin-top:20px;
+
+
+}
+
+
+
+.music-card p {
+
+
+    color:#aaa;
+
+    margin-top:8px;
+
+
+}
+
+
+
+.music-card span {
+
+
+    display:block;
+
+    color:#1DB954;
+
+    margin-top:12px;
+
+
+}
+
+
+
+/* ================================
+   FOOTER
+================================ */
+
+
+footer {
+
+
+    background:#181818;
+
+    padding:40px;
+
+    text-align:center;
+
+    margin-top:80px;
+
+
+}
+
+
+
+footer h3 {
+
+
+    color:#1DB954;
+
+
+}
+
+
+
+footer p {
+
+
+    color:#aaa;
+
+    margin-top:10px;
+
+
+}
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+
+@media(max-width:800px){
+
+
+nav {
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+
+.search-area {
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+
+.search-area input {
+
+    width:90%;
+
+}
+
+
+
+.explore-results {
+
+    padding:50px 20px;
+
+}
+
+
+.filters {
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+}

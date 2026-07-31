@@ -1,0 +1,517 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+body {
+
+    background:#0f0f0f;
+    color:white;
+
+}
+
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+
+nav {
+
+    padding:20px 80px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#181818;
+
+}
+
+
+
+.logo {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#1DB954;
+
+    font-size:25px;
+
+    font-weight:600;
+
+}
+
+
+
+.logo i {
+
+    font-size:30px;
+
+}
+
+
+
+nav ul {
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+
+
+nav ul a {
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+
+
+nav ul a:hover {
+
+    color:#1DB954;
+
+}
+
+
+
+/* ================================
+   MAIN SECTION
+================================ */
+
+
+.recommend-section {
+
+
+    text-align:center;
+
+    padding:80px 40px;
+
+
+}
+
+
+
+.recommend-section h1 {
+
+
+    font-size:50px;
+
+
+}
+
+
+
+.recommend-section p {
+
+
+    color:#aaa;
+
+    font-size:18px;
+
+    margin-top:15px;
+
+
+}
+
+
+
+/* ================================
+   SEARCH BOX
+================================ */
+
+
+.search-box {
+
+
+    margin:50px auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+
+}
+
+
+
+.search-box input {
+
+
+    width:450px;
+
+    padding:18px 25px;
+
+    border-radius:50px;
+
+    border:none;
+
+    outline:none;
+
+    font-size:16px;
+
+
+}
+
+
+
+.search-box button {
+
+
+    padding:18px 30px;
+
+    border-radius:50px;
+
+    border:none;
+
+    background:#1DB954;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+
+
+}
+
+
+
+.search-box button:hover {
+
+
+    transform:scale(1.05);
+
+
+}
+
+
+
+/* ================================
+   FILTERS
+================================ */
+
+
+.filters,
+.genre {
+
+
+    margin-top:50px;
+
+
+}
+
+
+
+.filters h2,
+.genre h2 {
+
+
+    margin-bottom:25px;
+
+}
+
+
+
+.moods {
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+.moods button {
+
+
+    padding:12px 25px;
+
+    border-radius:30px;
+
+    border:1px solid #1DB954;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+
+}
+
+
+
+.moods button:hover {
+
+
+    background:#1DB954;
+
+
+}
+
+
+
+.genre select {
+
+
+    padding:15px 40px;
+
+    border-radius:30px;
+
+    background:#1e1e1e;
+
+    color:white;
+
+    border:1px solid #1DB954;
+
+    font-size:16px;
+
+
+}
+
+
+
+/* ================================
+   RESULTS
+================================ */
+
+
+.results {
+
+
+    padding:60px 100px;
+
+
+}
+
+
+
+.results h2 {
+
+
+    text-align:center;
+
+    font-size:40px;
+
+    margin-bottom:50px;
+
+
+}
+
+
+
+.song-results {
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+.recommend-card {
+
+
+    width:270px;
+
+    background:#1a1a1a;
+
+    padding:20px;
+
+    border-radius:25px;
+
+    transition:.4s;
+
+
+}
+
+
+
+.recommend-card:hover {
+
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 30px rgba(29,185,84,.2);
+
+
+}
+
+
+
+.recommend-card img {
+
+
+    width:100%;
+
+    border-radius:20px;
+
+
+}
+
+
+
+.recommend-card h3 {
+
+
+    margin-top:20px;
+
+
+}
+
+
+
+.recommend-card p {
+
+
+    color:#aaa;
+
+    margin-top:8px;
+
+
+}
+
+
+
+.recommend-card span {
+
+
+    display:block;
+
+    margin-top:15px;
+
+    color:#1DB954;
+
+}
+
+
+
+/* ================================
+   FOOTER
+================================ */
+
+
+footer {
+
+
+    background:#181818;
+
+    padding:40px;
+
+    text-align:center;
+
+    margin-top:80px;
+
+
+}
+
+
+
+footer h3 {
+
+
+    color:#1DB954;
+
+    margin-bottom:10px;
+
+
+}
+
+
+
+footer p {
+
+
+    color:#aaa;
+
+
+}
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+
+@media(max-width:800px){
+
+
+nav {
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+.search-box {
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+.search-box input {
+
+    width:90%;
+
+}
+
+
+.results {
+
+    padding:50px 20px;
+
+}
+
+
+
+}

@@ -1,0 +1,517 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+
+}
+
+
+body {
+
+    background:#0f0f0f;
+    color:white;
+
+}
+
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+
+nav {
+
+    padding:20px 80px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#181818;
+
+}
+
+
+
+.logo {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#1DB954;
+
+    font-size:25px;
+
+    font-weight:600;
+
+}
+
+
+
+.logo i {
+
+    font-size:30px;
+
+}
+
+
+
+nav ul {
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+
+
+nav ul a {
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+
+
+nav ul a:hover {
+
+    color:#1DB954;
+
+}
+
+
+
+/* ================================
+   CHAT SECTION
+================================ */
+
+
+.chat-section {
+
+    padding:70px 20px;
+
+    text-align:center;
+
+}
+
+
+
+.chat-section h1 {
+
+    font-size:45px;
+
+}
+
+
+
+.chat-section p {
+
+    color:#aaa;
+
+    margin-top:15px;
+
+}
+
+
+
+
+/* ================================
+   CHAT CONTAINER
+================================ */
+
+
+.chat-container {
+
+
+    width:650px;
+
+    max-width:95%;
+
+    margin:40px auto;
+
+    background:#181818;
+
+    border-radius:30px;
+
+    padding:30px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+
+
+}
+
+
+
+/* ================================
+   MESSAGES
+================================ */
+
+
+.messages {
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    text-align:left;
+
+
+}
+
+
+
+.bot-message {
+
+
+    background:#262626;
+
+    padding:18px 25px;
+
+    border-radius:20px 20px 20px 5px;
+
+    width:fit-content;
+
+    max-width:80%;
+
+
+}
+
+
+
+.user-message {
+
+
+    background:#1DB954;
+
+    padding:18px 25px;
+
+    border-radius:20px 20px 5px 20px;
+
+    align-self:flex-end;
+
+
+}
+
+
+
+
+/* ================================
+   OPTIONS
+================================ */
+
+
+.options {
+
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+.options button {
+
+
+    padding:14px 22px;
+
+    border-radius:30px;
+
+    border:1px solid #1DB954;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+
+}
+
+
+
+.options button:hover {
+
+
+    background:#1DB954;
+
+
+}
+
+
+
+/* ================================
+   INPUT
+================================ */
+
+
+.chat-input {
+
+
+    margin-top:35px;
+
+    display:flex;
+
+    gap:15px;
+
+
+}
+
+
+
+.chat-input input {
+
+
+    flex:1;
+
+    padding:15px 20px;
+
+    border-radius:30px;
+
+    border:none;
+
+    outline:none;
+
+    font-size:15px;
+
+
+}
+
+
+
+.chat-input button {
+
+
+    width:55px;
+
+    border-radius:50%;
+
+    border:none;
+
+    background:#1DB954;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+
+}
+
+
+
+/* ================================
+   SONG SUGGESTIONS
+================================ */
+
+
+.suggestions {
+
+
+    padding:60px 80px;
+
+
+}
+
+
+
+.suggestions h2 {
+
+
+    text-align:center;
+
+    font-size:40px;
+
+    margin-bottom:45px;
+
+
+}
+
+
+
+.song-container {
+
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+.song-card {
+
+
+    width:260px;
+
+    background:#181818;
+
+    padding:20px;
+
+    border-radius:25px;
+
+    transition:.3s;
+
+
+}
+
+
+
+.song-card:hover {
+
+
+    transform:translateY(-10px);
+
+}
+
+
+
+.song-card img {
+
+
+    width:100%;
+
+    border-radius:20px;
+
+
+}
+
+
+
+.song-card h3 {
+
+
+    margin-top:15px;
+
+
+}
+
+
+
+.song-card p {
+
+
+    color:#aaa;
+
+    margin-top:8px;
+
+
+}
+
+
+
+/* ================================
+   FOOTER
+================================ */
+
+
+footer {
+
+
+    margin-top:60px;
+
+    background:#181818;
+
+    text-align:center;
+
+    padding:40px;
+
+
+}
+
+
+
+footer h3 {
+
+
+    color:#1DB954;
+
+    margin-bottom:10px;
+
+
+}
+
+
+
+footer p {
+
+
+    color:#aaa;
+
+
+}
+
+
+
+/* ================================
+   MOBILE
+================================ */
+
+
+@media(max-width:700px){
+
+
+nav {
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+
+.chat-container {
+
+    padding:20px;
+
+}
+
+
+
+.suggestions {
+
+    padding:50px 20px;
+
+}
+
+
+}
