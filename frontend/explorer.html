@@ -3,292 +3,142 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MoodTune AI - Explorer</title>
+    <title>MoodTune AI - Explorer</title>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-
-<link rel="stylesheet" href="css/explorer.css">
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/explorer.css">
 
 </head>
 
-
 <body>
 
+    <!-- ================= NAVBAR ================= -->
 
-<!-- NAVBAR -->
+    <nav>
 
-<nav>
+        <div class="logo">
 
+            <i class="fa-solid fa-headphones"></i>
 
-<div class="logo">
+            <span>MoodTune AI</span>
 
-<i class="fa-solid fa-headphones"></i>
+        </div>
 
-<span>MoodTune AI</span>
+        <ul>
 
-</div>
+            <li><a href="index.html">Home</a></li>
 
+            <li><a href="recommendation.html">Recommendation</a></li>
 
+            <li><a href="chatbot.html">Chatbot</a></li>
 
-<ul>
+            <li><a href="explorer.html" class="active">Explorer</a></li>
 
-<li><a href="index.html">Home</a></li>
+        </ul>
 
-<li><a href="recommendation.html">Recommendation</a></li>
+    </nav>
 
-<li><a href="chatbot.html">Chatbot</a></li>
+    <!-- ================= EXPLORER ================= -->
 
-<li><a href="explorer.html">Explorer</a></li>
+    <section class="explorer">
 
-</ul>
+        <h1>
 
+            🔍 Music Explorer
 
-</nav>
+        </h1>
 
+        <p>
 
+            Search songs, artists and discover new music.
 
+        </p>
 
+        <div class="search-area">
 
-<!-- EXPLORER -->
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search song or artist...">
 
+            <button id="searchBtn">
 
-<section class="explorer">
+                <i class="fa-solid fa-search"></i>
 
+                Search
 
-<h1>
+            </button>
 
-🔍 Music Explorer
+        </div>
 
-</h1>
+        <!-- Filters -->
 
+        <div class="filters">
 
-<p>
+            <select id="genreFilter">
 
-Search songs, artists and discover new music.
+                <option value="">All Genres</option>
 
-</p>
+            </select>
 
+        </div>
 
+    </section>
 
-<div class="search-area">
+    <!-- ================= RESULTS ================= -->
 
+    <section class="explore-results">
 
-<input 
-type="text"
-placeholder="Search song or artist..."
->
+        <h2>
 
+            Music Library
 
-<button>
+        </h2>
 
-<i class="fa-solid fa-search"></i>
+        <div
+            class="music-grid"
+            id="musicGrid">
 
-Search
+            <!-- Songs will come here -->
 
-</button>
+        </div>
 
+    </section>
+        <!-- ================= FOOTER ================= -->
 
-</div>
+    <footer>
 
+        <h3>MoodTune AI</h3>
 
+        <p>
 
+            AI Powered Music Recommendation System
 
+        </p>
 
-<!-- FILTERS -->
+        <br>
 
+        <p>
 
-<div class="filters">
+            © 2026 All Rights Reserved
 
+        </p>
 
-<select>
+    </footer>
 
-<option>All Genres</option>
-
-<option>Pop</option>
-
-<option>Rock</option>
-
-<option>Hip-Hop</option>
-
-<option>Classical</option>
-
-<option>Electronic</option>
-
-</select>
-
-
-
-
-<select>
-
-<option>Popularity</option>
-
-<option>Most Popular</option>
-
-<option>Recently Added</option>
-
-</select>
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-<!-- RESULTS -->
-
-
-<section class="explore-results">
-
-
-<h2>
-
-Music Library
-
-</h2>
-
-
-
-<div class="music-grid">
-
-
-
-<div class="music-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Blinding Lights
-
-</h3>
-
-
-<p>
-
-Artist: The Weeknd
-
-</p>
-
-
-<span>
-
-Genre: Pop
-
-</span>
-
-
-</div>
-
-
-
-
-
-<div class="music-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Believer
-
-</h3>
-
-
-<p>
-
-Artist: Imagine Dragons
-
-</p>
-
-
-<span>
-
-Genre: Rock
-
-</span>
-
-
-</div>
-
-
-
-
-
-<div class="music-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Perfect
-
-</h3>
-
-
-<p>
-
-Artist: Ed Sheeran
-
-</p>
-
-
-<span>
-
-Genre: Pop
-
-</span>
-
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<footer>
-
-
-<h3>MoodTune AI</h3>
-
-<p>
-
-AI Powered Music Recommendation System
-
-</p>
-
-
-</footer>
-
-
+    <!-- Explorer JavaScript -->
+    <script src="js/explorer.js"></script>
 
 </body>
 

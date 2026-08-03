@@ -3,316 +3,136 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MoodTune AI - Chatbot</title>
+    <title>MoodTune AI - Chatbot</title>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-
-<link rel="stylesheet" href="css/chatbot.css">
-
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/chatbot.css">
 
 </head>
 
-
 <body>
 
+    <!-- ================= NAVBAR ================= -->
 
-<!-- NAVBAR -->
+    <nav>
 
-<nav>
+        <div class="logo">
+            <i class="fa-solid fa-headphones"></i>
+            <span>MoodTune AI</span>
+        </div>
 
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="recommendation.html">Recommendation</a></li>
+            <li><a href="chatbot.html" class="active">Chatbot</a></li>
+            <li><a href="explorer.html">Explorer</a></li>
+        </ul>
 
-<div class="logo">
+    </nav>
 
-<i class="fa-solid fa-headphones"></i>
+    <!-- ================= CHATBOT ================= -->
 
-<span>MoodTune AI</span>
+    <section class="chat-section">
 
-</div>
+        <h1>🤖 MoodTune AI Assistant</h1>
 
+        <p>
+            Tell me how you're feeling and I'll recommend the perfect music.
+        </p>
 
+        <div class="chat-container">
 
-<ul>
+            <!-- Chat Messages -->
+            <div class="messages" id="messages">
 
-<li><a href="index.html">Home</a></li>
+                <div class="bot-message">
+                    👋 Hello! I'm MoodTune AI.
+                    <br><br>
+                    How are you feeling today?
+                </div>
 
-<li><a href="recommendation.html">Recommendation</a></li>
+            </div>
 
-<li><a href="chatbot.html">Chatbot</a></li>
+            <!-- Mood Option Buttons -->
+            <div class="options" id="optionButtons" style="display:none;">
 
-<li><a href="explorer.html">Explorer</a></li>
+                <button onclick="showSongs('Match My Mood')">
+                    🎵 Match My Mood
+                </button>
 
-</ul>
+                <button onclick="showSongs('Cheer Me Up')">
+                    🌈 Cheer Me Up
+                </button>
 
+                <button onclick="showSongs('Help Me Relax')">
+                    😌 Help Me Relax
+                </button>
 
-</nav>
+            </div>
 
+            <!-- Chat Input -->
+            <div class="chat-input">
 
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Type your message here...">
 
+                <button id="sendBtn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
 
-<!-- CHATBOT AREA -->
+            </div>
 
+        </div>
 
-<section class="chat-section">
+    </section>
 
+    <!-- ================= SONG RECOMMENDATIONS ================= -->
 
-<h1>
+    <section class="suggestions">
 
-🤖 MoodTune AI Assistant
+        <h2>🎵 Recommended Songs</h2>
 
-</h1>
+        <div class="song-container" id="songContainer">
 
+            <!-- JavaScript will insert recommendation cards here -->
 
-<p>
+        </div>
 
-Tell me how you feel and I'll find music for you.
+    </section>
 
-</p>
+    <!-- ================= FOOTER ================= -->
 
+    <footer>
 
+        <h3>MoodTune AI</h3>
 
+        <p>
+            AI Powered Music Recommendation System
+        </p>
 
-<div class="chat-container">
+        <br>
 
+        <p>
+            © 2026 All Rights Reserved
+        </p>
 
-<!-- Chat messages -->
+    </footer>
 
-
-<div class="messages">
-
-
-<div class="bot-message">
-
-Hello! 👋
-
-<br>
-
-How are you feeling today?
-
-</div>
-
-
-
-<div class="user-message">
-
-I'm feeling sad
-
-</div>
-
-
-
-<div class="bot-message">
-
-I detected your mood:
-
-<br>
-
-<strong>😢 Sad</strong>
-
-<br><br>
-
-What would you like?
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<!-- Options -->
-
-
-<div class="options">
-
-
-<button>
-
-🎵 Match My Mood
-
-</button>
-
-
-<button>
-
-🌈 Cheer Me Up
-
-</button>
-
-
-<button>
-
-😌 Help Me Relax
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-<!-- Input -->
-
-
-<div class="chat-input">
-
-
-<input 
-type="text"
-placeholder="Type your message..."
->
-
-
-<button>
-
-<i class="fa-solid fa-paper-plane"></i>
-
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-<!-- SONG SUGGESTIONS -->
-
-
-<section class="suggestions">
-
-
-<h2>
-
-Recommended For You
-
-</h2>
-
-
-
-<div class="song-container">
-
-
-
-<div class="song-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Happy
-
-</h3>
-
-
-<p>
-
-Pharrell Williams
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="song-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Fix You
-
-</h3>
-
-
-<p>
-
-Coldplay
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="song-card">
-
-
-<img src="https://placehold.co/250x250">
-
-
-<h3>
-
-Perfect
-
-</h3>
-
-
-<p>
-
-Ed Sheeran
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-<footer>
-
-<h3>MoodTune AI</h3>
-
-<p>
-
-AI Powered Music Recommendation System
-
-</p>
-
-</footer>
-
-
-
+    <!-- JavaScript -->
+    <script src="js/chatbot.js"></script>
 
 </body>
 

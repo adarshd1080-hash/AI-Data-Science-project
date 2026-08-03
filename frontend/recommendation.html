@@ -8,310 +8,199 @@
 
     <title>MoodTune AI - Recommendation</title>
 
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
-
-    <!-- Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/recommendation.css">
 
 </head>
 
-
 <body>
 
+    <!-- ================= NAVBAR ================= -->
 
-<!-- ================= NAVBAR ================= -->
+    <nav>
 
+        <div class="logo">
 
-<nav>
+            <i class="fa-solid fa-headphones"></i>
 
-
-    <div class="logo">
-
-        <i class="fa-solid fa-headphones"></i>
-
-        <span>MoodTune AI</span>
-
-    </div>
-
-
-
-    <ul>
-
-        <li><a href="index.html">Home</a></li>
-
-        <li><a href="recommendation.html">Recommendation</a></li>
-
-        <li><a href="chatbot.html">Chatbot</a></li>
-
-        <li><a href="explorer.html">Explorer</a></li>
-
-    </ul>
-
-
-</nav>
-
-
-
-
-<!-- ================= MAIN SECTION ================= -->
-
-
-<section class="recommend-section">
-
-
-    <h1>
-
-        Find Your Perfect Song
-
-    </h1>
-
-
-    <p>
-
-        Enter a song you love and discover similar music using AI.
-
-    </p>
-
-
-
-    <!-- Search Box -->
-
-
-    <div class="search-box">
-
-
-        <input 
-        type="text"
-        placeholder="Enter song name..."
-        >
-
-
-        <button>
-
-            <i class="fa-solid fa-search"></i>
-
-            Recommend
-
-        </button>
-
-
-    </div>
-
-
-
-
-
-    <!-- Mood Selection -->
-
-
-    <div class="filters">
-
-
-        <h2>Select Your Mood</h2>
-
-
-        <div class="moods">
-
-
-            <button>😊 Happy</button>
-
-            <button>😢 Sad</button>
-
-            <button>😌 Relax</button>
-
-            <button>⚡ Energetic</button>
-
-            <button>❤️ Romantic</button>
-
+            <span>MoodTune AI</span>
 
         </div>
 
+        <ul>
 
-    </div>
+            <li><a href="index.html">Home</a></li>
 
+            <li><a href="recommendation.html" class="active">Recommendation</a></li>
 
+            <li><a href="chatbot.html">Chatbot</a></li>
 
+            <li><a href="explorer.html">Explorer</a></li>
 
+        </ul>
 
-    <!-- Genre -->
+    </nav>
 
+    <!-- ================= MAIN ================= -->
 
-    <div class="genre">
+    <section class="recommend-section">
 
+        <h1>
 
-        <h2>Select Genre</h2>
+            Find Your Perfect Song
 
-
-        <select>
-
-
-            <option>All Genres</option>
-
-            <option>Pop</option>
-
-            <option>Rock</option>
-
-            <option>Hip-Hop</option>
-
-            <option>Classical</option>
-
-            <option>Electronic</option>
-
-
-        </select>
-
-
-    </div>
-
-
-
-</section>
-
-
-
-
-
-<!-- ================= RESULTS ================= -->
-
-
-<section class="results">
-
-
-<h2>
-
-Recommended Songs
-
-</h2>
-
-
-
-<div class="song-results">
-
-
-
-    <div class="recommend-card">
-
-
-        <img src="https://placehold.co/250x250">
-
-
-        <h3>
-
-        Song Name
-
-        </h3>
-
+        </h1>
 
         <p>
 
-        Artist Name
+            Enter a song name or choose a mood to get AI recommendations.
 
         </p>
 
+        <!-- Search -->
 
-        <span>
+        <div class="search-box">
 
-        Similarity: 95%
+            <input
+                id="songInput"
+                type="text"
+                placeholder="Enter song name...">
 
-        </span>
+            <button id="searchBtn">
 
+                <i class="fa-solid fa-search"></i>
 
+                Recommend
 
-    </div>
+            </button>
 
+        </div>
 
+        <!-- Mood Buttons -->
 
+        <div class="filters">
 
+            <h2>Select Your Mood</h2>
 
-    <div class="recommend-card">
+            <div class="moods">
 
+                <button
+                    class="mood-btn"
+                    data-mood="Happy">
 
-        <img src="https://placehold.co/250x250">
+                    😊 Happy
 
+                </button>
 
-        <h3>
+                <button
+                    class="mood-btn"
+                    data-mood="Sad">
 
-        Song Name
+                    😢 Sad
 
-        </h3>
+                </button>
 
+                <button
+                    class="mood-btn"
+                    data-mood="Relax">
+
+                    😌 Relax
+
+                </button>
+
+                <button
+                    class="mood-btn"
+                    data-mood="Energetic">
+
+                    ⚡ Energetic
+
+                </button>
+
+                <button
+                    class="mood-btn"
+                    data-mood="Romantic">
+
+                    ❤️ Romantic
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Genre -->
+
+        <div class="genre">
+
+            <h2>
+
+                Select Genre
+
+            </h2>
+
+            <select id="genreSelect">
+
+                <option value="">
+
+                    All Genres
+
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+    <!-- ================= RESULTS ================= -->
+
+    <section class="results">
+
+        <h2>
+
+            Recommended Songs
+
+        </h2>
+
+        <div
+            class="song-results"
+            id="resultsContainer">
+
+        </div>
+
+    </section>
+        <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>MoodTune AI</h3>
 
         <p>
 
-        Artist Name
+            AI Powered Music Recommendation System
 
         </p>
 
-
-        <span>
-
-        Similarity: 92%
-
-        </span>
-
-
-    </div>
-
-
-
-
-
-    <div class="recommend-card">
-
-
-        <img src="https://placehold.co/250x250">
-
-
-        <h3>
-
-        Song Name
-
-        </h3>
-
+        <br>
 
         <p>
 
-        Artist Name
+            © 2026 All Rights Reserved
 
         </p>
 
+    </footer>
 
-        <span>
-
-        Similarity: 90%
-
-        </span>
-
-
-    </div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-<footer>
-
-<h3>MoodTune AI</h3>
-
-<p>AI Powered Music Recommendation System</p>
-
-</footer>
-
-
+    <!-- JavaScript -->
+    <script src="js/recommendation.js"></script>
 
 </body>
 
