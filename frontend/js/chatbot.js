@@ -1,6 +1,9 @@
-// ===============================
+
+"use strict";
+
+// ==========================================
 // MoodTune AI Chatbot
-// ===============================
+// ==========================================
 
 const messages = document.getElementById("messages");
 const input = document.getElementById("messageInput");
@@ -8,289 +11,248 @@ const sendBtn = document.getElementById("sendBtn");
 const optionButtons = document.getElementById("optionButtons");
 const songContainer = document.getElementById("songContainer");
 
-let recommendedSongs = [];
-let detectedMood = "";
+const API_URL = "http://127.0.0.1:5000";
 
-// ===============================
+let lastMessage = "";
+let detectedMood = "";
+let recommendedSongs = [];
+let requestInProgress = false;
+
+
+// ==========================================
+// Safe HTML Text
+// ==========================================
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+
+// ==========================================
+// Add Chat Message
+// ==========================================
+
+function addMessage(text, type) {
+    const messageElement = document.createElement("div");
+
+    messageElement.className =
+        type === "user" ? "user-message" : "bot-message";
+
+    messageElement.textContent = text;
+
+    messages.appendChild(messageElement);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+// ==========================================
 // Send Button
-// ===============================
+// ==========================================
 
 sendBtn.addEventListener("click", sendMessage);
 
-// ===============================
+
+// ==========================================
 // Enter Key
-// ===============================
+// ==========================================
 
-input.addEventListener("keypress", function (event) {
-
+input.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-
+        event.preventDefault();
         sendMessage();
-
     }
-
 });
 
-// ===============================
-// Send Message
-// ===============================
+
+// ==========================================
+// Send Message and Detect Mood
+// ==========================================
 
 async function sendMessage() {
-
     const text = input.value.trim();
 
-    if (text === "") return;
+    if (!text || requestInProgress) {
+        return;
+    }
 
-    // User Message
-    messages.innerHTML += `
-        <div class="user-message">
-            ${text}
-        </div>
-    `;
+    lastMessage = text;
 
-    messages.scrollTop = messages.scrollHeight;
+    addMessage(text, "user");
 
     input.value = "";
+    input.disabled = true;
+    sendBtn.disabled = true;
+
+    optionButtons.style.display = "none";
+    songContainer.innerHTML = "";
+
+    addMessage("Understanding your mood...", "bot");
+
+    requestInProgress = true;
 
     try {
-
-        const response = await fetch("http://127.0.0.1:5000/recommend", {
-
+        const response = await fetch(`${API_URL}/recommend`, {
             method: "POST",
-
             headers: {
-
                 "Content-Type": "application/json"
-
             },
-
             body: JSON.stringify({
-
-                message: text
-
+                message: lastMessage,
+                mode: "Match My Mood"
             })
-
         });
-
-        if (!response.ok) {
-
-            throw new Error("Backend Error");
-
-        }
 
         const data = await response.json();
 
-        detectedMood = data.mood;
-        recommendedSongs = data.songs;
-
-        // Bot Reply
-        messages.innerHTML += `
-            <div class="bot-message">
-                😊 I detected your mood as
-                <strong>${detectedMood}</strong>.
-                <br><br>
-                Choose one of the options below.
-            </div>
-        `;
-
-        // Show Option Buttons
-
-        if (detectedMood === "Sad") {
-
-            optionButtons.innerHTML = `
-
-                <button onclick="showSongs('Match My Mood')">
-                    🎵 Match My Mood
-                </button>
-
-                <button onclick="showSongs('Cheer Me Up')">
-                    🌈 Cheer Me Up
-                </button>
-
-                <button onclick="showSongs('Help Me Relax')">
-                    😌 Help Me Relax
-                </button>
-
-            `;
-
+        if (!response.ok) {
+            throw new Error(
+                data.error || "Could not detect your mood."
+            );
         }
 
-        else if (detectedMood === "Happy") {
+        detectedMood = data.mood || "Unknown";
+        recommendedSongs = data.songs || [];
 
-            optionButtons.innerHTML = `
+        // Remove the temporary status message
+        const botMessages = messages.querySelectorAll(".bot-message");
+        const lastBotMessage = botMessages[botMessages.length - 1];
 
-                <button onclick="showSongs('Keep the Vibes Going')">
-                    😄 Keep the Vibes Going
-                </button>
-
-                <button onclick="showSongs('Dance Playlist')">
-                    💃 Dance Playlist
-                </button>
-
-                <button onclick="showSongs('Trending Songs')">
-                    🔥 Trending Songs
-                </button>
-
-            `;
-
+        if (
+            lastBotMessage &&
+            lastBotMessage.textContent === "Understanding your mood..."
+        ) {
+            lastBotMessage.remove();
         }
 
-        else if (detectedMood === "Relax") {
+        addMessage(
+            `I detected your mood as ${detectedMood}. Choose a music option below!`,
+            "bot"
+        );
 
-            optionButtons.innerHTML = `
+        // Show the three mode buttons
+        optionButtons.style.display = "flex";
 
-                <button onclick="showSongs('Nature Sounds')">
-                    🌿 Nature Sounds
-                </button>
+    } catch (error) {
+        console.error("Chatbot error:", error);
 
-                <button onclick="showSongs('Piano Music')">
-                    🎹 Piano Music
-                </button>
+        addMessage(
+            `Sorry, something went wrong: ${error.message}. Please check that your backend is running.`,
+            "bot"
+        );
 
-                <button onclick="showSongs('Sleep Playlist')">
-                    😴 Sleep Playlist
-                </button>
-
-            `;
-
-        }
-
-        else if (detectedMood === "Energetic") {
-
-            optionButtons.innerHTML = `
-
-                <button onclick="showSongs('Workout Songs')">
-                    💪 Workout Songs
-                </button>
-
-                <button onclick="showSongs('Party Playlist')">
-                    🎉 Party Playlist
-                </button>
-
-                <button onclick="showSongs('EDM Mix')">
-                    🎧 EDM Mix
-                </button>
-
-            `;
-
-        }
-
-        else if (detectedMood === "Romantic") {
-
-            optionButtons.innerHTML = `
-
-                <button onclick="showSongs('Love Songs')">
-                    ❤️ Love Songs
-                </button>
-
-                <button onclick="showSongs('Soft Pop')">
-                    🎶 Soft Pop
-                </button>
-
-                <button onclick="showSongs('R&B Collection')">
-                    🎤 R&B Collection
-                </button>
-
-            `;
-
-        }
-
-        else {
-
-            optionButtons.innerHTML = `
-
-                <button onclick="showSongs('Show Recommendations')">
-                    🎵 Show Recommendations
-                </button>
-
-            `;
-
-        }
-
-        optionButtons.style.display = "block";
-
-        messages.scrollTop = messages.scrollHeight;
-
+    } finally {
+        requestInProgress = false;
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
     }
-
-    catch (error) {
-
-        console.error(error);
-
-        messages.innerHTML += `
-
-            <div class="bot-message">
-
-                ❌ Cannot connect to backend.
-
-            </div>
-
-        `;
-
-    }
-
 }
 
-// ===============================
-// Show Songs
-// ===============================
 
-function showSongs(option) {
+// ==========================================
+// Show Songs for Selected Mode
+// ==========================================
 
-    messages.innerHTML += `
-
-        <div class="user-message">
-
-            ${option}
-
-        </div>
-
-    `;
-
-    songContainer.innerHTML = "";
-
-    if (recommendedSongs.length === 0) {
-
-        songContainer.innerHTML = `
-
-            <p>No songs found.</p>
-
-        `;
-
+async function showSongs(option) {
+    if (!lastMessage || requestInProgress) {
         return;
-
     }
 
-    recommendedSongs.forEach(song => {
+    requestInProgress = true;
 
-        songContainer.innerHTML += `
-
-            <div class="song-card">
-
-                <img src="https://placehold.co/250x250">
-
-                <h3>${song.Song}</h3>
-
-                <p>${song.Artist}</p>
-
-                <span>${song.Genre}</span>
-
-            </div>
-
-        `;
-
+    optionButtons.querySelectorAll("button").forEach(button => {
+        button.disabled = true;
     });
 
-    messages.innerHTML += `
+    songContainer.innerHTML = "<p>Finding songs for you...</p>";
 
-        <div class="bot-message">
+    addMessage(option, "user");
 
-            🎵 Here are your recommendations.
+    try {
+        const response = await fetch(`${API_URL}/recommend`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: lastMessage,
+                mode: option
+            })
+        });
 
-        </div>
+        const data = await response.json();
 
-    `;
+        if (!response.ok) {
+            throw new Error(
+                data.error || "Could not load songs."
+            );
+        }
 
-    messages.scrollTop = messages.scrollHeight;
+        detectedMood = data.mood || detectedMood;
+        recommendedSongs = data.songs || [];
 
+        renderSongs(recommendedSongs);
+
+        addMessage(
+            `Here are your ${option} recommendations!`,
+            "bot"
+        );
+
+    } catch (error) {
+        console.error("Song recommendation error:", error);
+
+        songContainer.innerHTML =
+            "<p>Unable to load songs. Please check your backend terminal.</p>";
+
+        addMessage(
+            "Sorry, I couldn't load the songs. Please try again.",
+            "bot"
+        );
+
+    } finally {
+        requestInProgress = false;
+
+        optionButtons.querySelectorAll("button").forEach(button => {
+            button.disabled = false;
+        });
+    }
+}
+
+
+// ==========================================
+// Render Song Cards
+// ==========================================
+
+function renderSongs(songs) {
+    songContainer.innerHTML = "";
+
+    if (!songs || songs.length === 0) {
+        songContainer.innerHTML =
+            "<p>No songs found. Please try another option.</p>";
+        return;
+    }
+
+    songs.forEach(song => {
+        const card = document.createElement("div");
+
+        card.className = "song-card";
+
+        card.innerHTML = `
+            <img
+                src="https://placehold.co/250x250"
+                alt="Album artwork placeholder"
+            >
+            <h3>${escapeHTML(song.Song)}</h3>
+            <p>${escapeHTML(song.Artist)}</p>
+            <span>${escapeHTML(song.Genre)}</span>
+        `;
+
+        songContainer.appendChild(card);
+    });
 }
