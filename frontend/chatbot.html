@@ -1,34 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MoodTune AI - Chatbot</title>
 
     <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    >
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <!-- Existing Chatbot CSS -->
-    <link rel="stylesheet" href="css/chatbot.css">
+    <!-- Cache-Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/chatbot.css?v=2.0">
+
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
 
     <nav>
+
         <div class="logo">
             <i class="fa-solid fa-headphones"></i>
             <span>MoodTune AI</span>
@@ -40,23 +43,22 @@
             <li><a href="chatbot.html" class="active">Chatbot</a></li>
             <li><a href="explorer.html">Explorer</a></li>
         </ul>
+
     </nav>
 
-
-    <!-- CHATBOT -->
+    <!-- ================= CHATBOT ================= -->
 
     <section class="chat-section">
 
         <h1>🤖 MoodTune AI Assistant</h1>
 
         <p>
-            Tell me how you're feeling and I'll recommend music for you.
+            Tell me how you're feeling and I'll recommend the perfect music.
         </p>
 
         <div class="chat-container">
 
             <!-- Chat Messages -->
-
             <div class="messages" id="messages">
 
                 <div class="bot-message">
@@ -67,55 +69,32 @@
 
             </div>
 
+            <!-- Mood Option Buttons -->
+            <div class="options" id="optionButtons" style="display:none;">
 
-            <!-- Mode Buttons -->
-
-            <div
-                class="options"
-                id="optionButtons"
-                style="display: none;"
-            >
-
-                <button
-                    type="button"
-                    onclick="showSongs('Match My Mood')"
-                >
+                <button onclick="showSongs('Match My Mood')">
                     🎵 Match My Mood
                 </button>
 
-                <button
-                    type="button"
-                    onclick="showSongs('Cheer Me Up')"
-                >
+                <button onclick="showSongs('Cheer Me Up')">
                     🌈 Cheer Me Up
                 </button>
 
-                <button
-                    type="button"
-                    onclick="showSongs('Help Me Relax')"
-                >
+                <button onclick="showSongs('Help Me Relax')">
                     😌 Help Me Relax
                 </button>
 
             </div>
 
-
             <!-- Chat Input -->
-
             <div class="chat-input">
 
                 <input
                     type="text"
                     id="messageInput"
-                    placeholder="Type your message here..."
-                    autocomplete="off"
-                >
+                    placeholder="Type your message here...">
 
-                <button
-                    type="button"
-                    id="sendBtn"
-                    aria-label="Send message"
-                >
+                <button id="sendBtn">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
 
@@ -125,38 +104,41 @@
 
     </section>
 
-
-    <!-- SONG RECOMMENDATIONS -->
+    <!-- ================= SONG RECOMMENDATIONS ================= -->
 
     <section class="suggestions">
 
         <h2>🎵 Recommended Songs</h2>
 
         <div class="song-container" id="songContainer">
-            <!-- Song cards are inserted by chatbot.js -->
+
+            <!-- JavaScript will insert recommendation cards here -->
+
         </div>
 
     </section>
 
-
-    <!-- FOOTER -->
+    <!-- ================= FOOTER ================= -->
 
     <footer>
 
         <h3>MoodTune AI</h3>
 
-        <p>AI Powered Music Recommendation System</p>
+        <p>
+            AI Powered Music Recommendation System
+        </p>
 
         <br>
 
-        <p>© 2026 All Rights Reserved</p>
+        <p>
+            © 2026 All Rights Reserved
+        </p>
 
     </footer>
 
-
-    <!-- Load JavaScript at the end -->
-
-    <script src="js/chatbot.js"></script>
+    <!-- JavaScript -->
+    <script src="js/chatbot.js?v=2.0"></script>
 
 </body>
+
 </html>

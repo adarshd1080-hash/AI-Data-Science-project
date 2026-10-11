@@ -1,14 +1,8 @@
-
 import sys
 import os
 
-# Allow Python to import modules from the project root
-PROJECT_ROOT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..")
-)
-
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
+# Allow importing files from project root
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -17,15 +11,25 @@ from chatbot import detect_mood
 
 from recommendation.recommendation import (
     recommend_by_mood,
+    recommend_by_option,
     recommend_song,
     search_song,
     explorer_songs,
     get_genres,
+    OPTION_GENRES,
     df
 )
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return response
+
 
 
 # ==========================================
@@ -38,42 +42,59 @@ def home():
 
 
 # ==========================================
-# Chatbot Recommendations
+# Chatbot Recommendation
 # ==========================================
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
-    data = request.get_json(silent=True) or {}
 
-    message = str(data.get("message", "")).strip()
-    mode = str(data.get("mode", "Match My Mood")).strip()
+    data = request.get_json()
 
-    if not message:
-        return jsonify({"error": "Please enter a message."}), 400
+    if not data:
+        return jsonify({"error": "No data received"}), 400
 
-    try:
-        # Detect the user's emotion
-        mood = detect_mood(message)
+    message = data.get("message", "").strip()
+    clean_msg = message.lower()
 
-        # Generate songs for the selected mode
-        songs = recommend_by_mood(
-            mood,
-            n=5,
-            mode=mode
-        )
+    # If the user typed an option directly
+    for opt_name in OPTION_GENRES.keys():
+        if opt_name.lower() in clean_msg or clean_msg == opt_name.lower():
+            songs = recommend_by_option(opt_name)
+            return jsonify({
+                "mood": opt_name,
+                "is_option": True,
+                "songs": songs
+            })
 
-        return jsonify({
-            "mood": mood,
-            "mode": mode,
-            "songs": songs
-        })
+    mood = detect_mood(message)
+    songs = recommend_by_mood(mood)
 
-    except Exception as error:
-        app.logger.exception("Recommendation failed")
-        return jsonify({
-            "error": "Unable to generate recommendations.",
-            "details": str(error)
-        }), 500
+    return jsonify({
+        "mood": mood,
+        "is_option": False,
+        "songs": songs
+    })
+
+
+
+# ==========================================
+# Chatbot Sub-Option Recommendation
+# ==========================================
+
+@app.route("/recommend-option", methods=["POST"])
+def recommend_option_api():
+
+    data = request.get_json()
+
+    if not data:
+        return jsonify([])
+
+    option = data.get("option", "")
+    mood = data.get("mood", "")
+
+    songs = recommend_by_option(option, mood)
+
+    return jsonify(songs)
 
 
 # ==========================================
@@ -82,17 +103,17 @@ def recommend():
 
 @app.route("/recommend-song", methods=["POST"])
 def recommend_song_api():
-    data = request.get_json(silent=True) or {}
-    song_name = str(data.get("song", "")).strip()
 
-    if not song_name:
+    data = request.get_json()
+
+    if not data:
         return jsonify([])
 
-    try:
-        return jsonify(recommend_song(song_name))
-    except Exception:
-        app.logger.exception("Similar-song recommendation failed")
-        return jsonify({"error": "Could not find similar songs."}), 500
+    song_name = data.get("song", "")
+
+    songs = recommend_song(song_name)
+
+    return jsonify(songs)
 
 
 # ==========================================
@@ -101,12 +122,46 @@ def recommend_song_api():
 
 @app.route("/search", methods=["GET"])
 def search():
-    query = request.args.get("q", "").strip()
 
-    if not query:
-        return jsonify([])
+    query = request.args.get("q", "").lower()
+    genre = request.args.get("genre", "").lower()
 
-    return jsonify(search_song(query))
+    results = df.copy()
+
+    # Search by song OR artist
+    if query:
+
+        results = results[
+            results["track_name"].str.lower().str.contains(query, na=False)
+            |
+            results["artists"].str.lower().str.contains(query, na=False)
+        ]
+
+    # Filter by genre
+    if genre and genre != "all genres":
+
+        results = results[
+            results["track_genre"].str.lower() == genre
+        ]
+
+    results = results.sort_values(
+        by="popularity",
+        ascending=False
+    ).head(20)
+
+    songs = []
+
+    for _, row in results.iterrows():
+
+        songs.append({
+
+            "Song": row["track_name"],
+            "Artist": row["artists"],
+            "Genre": row["track_genre"]
+
+        })
+
+    return jsonify(songs)
 
 
 # ==========================================
@@ -115,7 +170,10 @@ def search():
 
 @app.route("/explorer", methods=["GET"])
 def explorer():
-    return jsonify(explorer_songs())
+
+    songs = explorer_songs()
+
+    return jsonify(songs)
 
 
 # ==========================================
@@ -124,8 +182,13 @@ def explorer():
 
 @app.route("/genres", methods=["GET"])
 def genres():
+
     return jsonify(get_genres())
 
+
+# ==========================================
+# Mood Recommendation API
+# ==========================================
 
 # ==========================================
 # Genre Filter
@@ -133,29 +196,33 @@ def genres():
 
 @app.route("/genre/<genre>", methods=["GET"])
 def genre_filter(genre):
+
     songs = df[
-        df["track_genre"].astype(str).str.lower() == genre.lower()
+        df["track_genre"].str.lower() == genre.lower()
     ]
 
     results = []
 
     for _, row in songs.head(20).iterrows():
+
         results.append({
+
             "Song": row["track_name"],
             "Artist": row["artists"],
             "Genre": row["track_genre"]
+
         })
 
     return jsonify(results)
-
-
 # ==========================================
-# Run Backend
+# Mood Recommendation API
 # ==========================================
 
+@app.route("/mood/<mood>", methods=["GET"])
+def mood_api(mood):
+
+    songs = recommend_by_mood(mood)
+
+    return jsonify(songs)
 if __name__ == "__main__":
-    app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
-    )
+    app.run(debug=True, use_reloader=False)

@@ -171,15 +171,12 @@ function displaySongs(songs) {
         card.className = "music-card";
 
         card.innerHTML = `
-
-            <img src="https://placehold.co/250x250?text=Music">
-
-            <h3>${song.Song}</h3>
-
-            <p><strong>Artist:</strong> ${song.Artist}</p>
-
-            <p><strong>Genre:</strong> ${song.Genre}</p>
-
+            <div style="width: 100%; height: 160px; background: linear-gradient(135deg, #1db954 0%, #191414 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); margin-bottom: 15px;">
+                <i class="fa-solid fa-music" style="font-size: 46px; color: rgba(255,255,255,0.9);"></i>
+            </div>
+            <h3 style="font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px;" title="${song.Song}">${song.Song}</h3>
+            <p style="color: #bbb; font-size: 14px; margin-bottom: 6px;"><strong>Artist:</strong> ${song.Artist}</p>
+            <p style="color: #888; font-size: 13px;"><strong>Genre:</strong> <span style="color: #1DB954; text-transform: capitalize;">${song.Genre}</span></p>
         `;
 
         musicGrid.appendChild(card);
